@@ -1,0 +1,95 @@
+body {
+  font-size: 10px;
+}
+
+.heading-primary {
+  text-align: center;
+}
+
+.table {
+  table-layout: fixed;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.table td {
+  width: 60px;
+  height: 60px;
+  background-color: #ddd;
+  text-align: center;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.table td::after {
+  content: '';
+  display: block;
+  width: 60px;
+}
+
+.list {
+  max-width: 750px;
+  margin: 0 auto;
+  list-style: none;
+  background-color: #fff;
+  padding: 0;
+}
+
+.list-item {
+  display: flex;
+  display: -webkit-flex;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
+  border-bottom: 2px solid #ddd;
+}
+
+.list-item > * {
+  width: 50px;
+  padding: 5px 10px;
+  text-align: center;
+}
+
+.list-item > *:last-child {
+  -webkit-flex-grow: 1;
+  flex-grow: 1;
+}
+
+.result {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 10;
+}
+
+.result-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  height: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  text-align: center;
+}
+
+.result-panel {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.result-panel > * {
+  width: 48%;
+  text-align: center;
+}
+
+/* state */
+.is-show {
+  display: block;
+}
