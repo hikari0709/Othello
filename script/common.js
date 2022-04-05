@@ -61,7 +61,7 @@ window.onload = function () {
   // 行と列の番号を取得してそこからチェックすべき箇所を配列で作る、作った配列をチェックしていく
   // オセロがおける位置かチェック　全てが同じ色でない
   function checkPutOthello(index) {
-    console.log(index);
+    //console.log(index);
     // 石を設置できる箇所であるかチェック
     // 一つでも違う色の石があるのかを確認する
     // 取得したindexをもとにチェックすべき箇所のindexの配列をつくる
@@ -74,6 +74,9 @@ window.onload = function () {
     const crossLine = [];
     const rowLine = [];
     const columnLine = [];
+
+    const columnIndex = getColumnIndex(index);
+    console.log(columnIndex);
   }
 
   // 結果を計算&表示する（それぞれのオセロの数を出す）
@@ -99,6 +102,14 @@ window.onload = function () {
       5:[5 ,13 ,21 ,29 ,37 ,45 ,53 ,61],
       6:[6 ,14 ,22 ,30 ,38 ,46 ,54 ,62],
       7:[7 ,15 ,23 ,31 ,39 ,47 ,55 ,63],
+    }
+
+    for (let i = 0; i < 8; i++) {
+      for (let n = 0; n < column[i].length; n++) {
+        if (column[i][n] === index) {
+          return i;
+        }
+      }
     }
   }
 
