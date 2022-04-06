@@ -61,22 +61,24 @@ window.onload = function () {
   // 行と列の番号を取得してそこからチェックすべき箇所を配列で作る、作った配列をチェックしていく
   // オセロがおける位置かチェック　全てが同じ色でない
   function checkPutOthello(index) {
-    //console.log(index);
+    const columnIndex = getColumnIndex(index);
+    const leftLength = getGridCount(columnIndex, 'left');
+    const rightLength = getGridCount(columnIndex, 'right');
+
+    const columnLine = generateArray(index,leftLength, rightLength);
+    let rowLine = [];
+    let crossLine = [];
+
+    // 周辺のindex
+    const around = [index - 9, index - 8, index - 7, index + 7, index + 8, index + 9];
+
     // 石を設置できる箇所であるかチェック
     // 一つでも違う色の石があるのかを確認する
     // 取得したindexをもとにチェックすべき箇所のindexの配列をつくる
     // 左上:index-9 上:index-8 右上:index-7  左下:index+7 下:index+8 右下:index+9
 
-    // 周辺のindex
-    const around = [index - 9, index - 8, index - 7, index + 7, index + 8, index + 9];
-
-    // 右斜め
-    const crossLine = [];
-    const rowLine = [];
-    const columnLine = [];
-
-    const columnIndex = getColumnIndex(index);
-    console.log(columnIndex);
+    console.log(index);
+    console.log(columnLine);
   }
 
   // 結果を計算&表示する（それぞれのオセロの数を出す）
@@ -91,7 +93,7 @@ window.onload = function () {
     $resultWhite.prepend(othello[1]);
   }
 
-  // 列indexを取得する
+  // 列indexを取得する　縦の位置を知るために行のindexも返すように変更する
   function getColumnIndex(index) {
     const column = {
       0:[0, 8, 16, 24, 32, 40, 48, 56],
@@ -104,6 +106,17 @@ window.onload = function () {
       7:[7 ,15 ,23 ,31 ,39 ,47 ,55 ,63],
     }
 
+    const row = {
+      0:[0, 1, 2, 3, 4, 5, 6, 7],
+      1:[8 ,9 ,10 ,11 ,12 ,13 ,14, 15],
+      2:[16, 17, 18, 19, 20, 21, 22, 23],
+      3:[24 ,25 ,26 ,27 ,28 ,29, 30, 31],
+      4:[32 ,33 ,34 ,35 ,36 ,37, 38, 39],
+      5:[40 ,41 ,42 ,43 ,44 ,45 ,46 ,47],
+      6:[48 ,49 ,50 ,51 ,52 ,53 ,54 ,55],
+      7:[56 ,57 ,58 ,59 ,60 ,61 ,62 ,63],
+    }
+
     for (let i = 0; i < 8; i++) {
       for (let n = 0; n < column[i].length; n++) {
         if (column[i][n] === index) {
@@ -111,6 +124,42 @@ window.onload = function () {
         }
       }
     }
+  }
+
+  // 列の位置から左右の端までを計算する　※関数名微妙
+  function getGridCount(columnIndex, direction) {
+    let count = 0;
+    if (direction === 'right') {
+      for (let i = columnIndex; i < 7; i++) {
+        count++;
+      }
+    } else {
+      for (let i = columnIndex; i > 0 ; i--) {
+        count++;
+      }
+    }
+    return count;
+  }
+
+  // チェックする配列を作る
+  function generateArray(index, leftLength, rightLength) {
+    let array = [];
+    for (let i = 0; i < leftLength; i++) {
+      array[array.length] = index - (i + 1);
+    }
+
+    for (let i = 0; i < rightLength; i++) {
+      array[array.length] = index + (i + 1);
+    }
+
+    array.sort(compareNumber);
+
+    return array;
+  }
+
+  // 数値の比較処理
+  function compareNumber(a, b) {
+    return a - b;
   }
 
   // 結果が出た後閉じるボタンを押すとゲームがリセットされる（リスタート）
